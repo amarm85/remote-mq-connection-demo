@@ -1,0 +1,27 @@
+*Disabled channel auth
+ALTER QMGR CHLAUTH(DISABLED)
+
+*Remote Q setup on earth
+DEFINE QR(RQ1.TO.MOON) RNAME(LQ1) RQMNAME(MOON) XMITQ(XMIT.TO.MOON)
+
+*define xmit q 
+DEFINE QL(XMIT.TO.MOON) USAGE(XMITQ)
+
+*define sender channel 
+DEFINE CHANNEL(TO.MOON) CHLTYPE(SDR)  TRPTYPE(TCP) CONNAME('MQS2(1414)') XMITQ(XMIT.TO.MOON)
+
+*in qm earth start the channel
+START CHANNEL(TO.MOON)
+
+*Display the channel
+DISPLAY CHS(TO.MOON)
+
+*define reciever channel 
+DEFINE CHANNEL(TO.EARTH) CHLTYPE(RCVR) 
+
+*define local queue
+DEFINE QL(LQ1)
+
+* Developer listener
+DEFINE LISTENER('DEV.LISTENER.TCP') TRPTYPE(TCP) PORT(1414) CONTROL(QMGR) REPLACE
+START LISTENER('DEV.LISTENER.TCP')
