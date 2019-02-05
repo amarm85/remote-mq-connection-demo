@@ -1,8 +1,8 @@
 # IBM MQ Remote Queue connection Demo
 
-#### This is demo application to show how to queue manager can exchange the messages using remote queue connection.
+#### This is demo application to show how two queue managers can exchange the messages using remote queue connection.
 
-This Demo uses two Queue Managers EARTH (Running on QMS1 docker container) and MOON (Running on QMS2 docker container). There are remote MQ and Sender and recvr Channel defination from EARTH to MOON and vise versa.
+This Demo uses two Queue Managers EARTH (Running on MQS1 docker container) and MOON (Running on MQS2 docker container). There are remote queue, XMIT Queue, Sender and recvr Channel defination from EARTH to MOON and vise versa.
 
 ## Requirement 
 - Should have docker verion `Docker version 18.03.1-ce, build 9ee9f40` or higher.
@@ -42,6 +42,8 @@ greetings from earth
 ```sh
 docker exec -ti MQS2 /bin/bash
 
+(mq:9.0.5.0)root@30fa84e902cd:/# dspmq
+QMNAME(MOON)                                              STATUS(Running)
 (mq:9.0.5.0)root@30fa84e902cd:/# amqsget LQ1 
 Sample AMQSGET0 start
 message <hello mooners >
